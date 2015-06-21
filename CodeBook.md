@@ -2,16 +2,20 @@ Introduction
 ------------
 This codebook has the following sections:
 
-- General description of all variables in the original dataset; *features_info.txt*
-file that came with the original data
+- General description of all variables in the original dataset; this
+section is the *features_info.txt* file that came with the original
+data
 
-- Explanation of features selected from the original dataset for this assignment
+- Explanation of features selected from the original dataset for this assignment,
+including the units
+
+- Structure of the tidy dataset
 
 - List of all variables in the tidy dataset produced for the assignment, with
 some detailed descriptions
 
-General description of variables in the original dataset
---------------------------------------------------------
+General description of all 561 variables in the original dataset
+----------------------------------------------------------------
 *features_info.txt* file that came with original data:
 
 ### Feature Selection ###
@@ -132,26 +136,49 @@ Explanation of features included for the assignment
 Based on the explanation above in *features_info.txt*, and the
 complete list of 561 variables in 'features.txt" (not given here), I
 selected 66 variables that had either "mean()" or "std()" in the name
-for inclusion in the tidy dataset.  In the R script *run_analysis.R* the names
-are changed slightly to conform to R naming conventions.
-
-The first two variables in the tidy dataset *subjectactdata* are
-
-- *subject* which is an id ranging from 1 to 30
-
-- *activity* a factor with six levels *walking*, *walkingupstairs*, *walkingdownstairs*,
-    *sitting*, *standing*, *laying*
-
-The 66 measurement variables included in *subjectactdata* are listed
-below.  The explanations are for the original variables.  The data in
-the tidy dataset *subjectactdata* contains the means of these
-variables over several overlapping windows.  Also note that the means
-are taken over a varying number of windows per subject/activity
-combination.
+for inclusion in the tidy dataset.  In the R script *run_analysis.R*
+the names are changed slightly to conform to R naming conventions.  It
+is useful to explain one of the variables in detail; explanations of
+the other variables are similar.  The first variable name in the tidy
+dataset is *tbodyaccmeanx* (corresponding to *tBodyAcc-mean()-X* in
+the original dataset).  This name stands for the mean in the x
+direction of body acceleration; the "t" at the beginning means it's
+for the time domain as opposed to the frequency domain (frequency
+domain requires a "Fourier transformation" to compute).  From
+Paragraph 2 of the *README.txt* file with the original data (included
+in my *README.md*), we are told that the accelerometer and gyroscope
+signals from the smartphone were "sampled in fixed-width sliding
+windows of 2.56 sec and 50% overlap (128 readings/window)."  So, it is
+reasonable to suppose the "mean" in the name *tbodyaccmeanx* refers to
+taking the mean of the 128 readings in a particular window, of the x
+component of body acceleration in the time domain.  Similarly, for the
+variable *tbodyaccstdx*, the "std" in the name indicates that the
+standard deviation was taken of 128 measurements of body acceleration
+in x direction in time domain in a particular 2.56-sec window.  One
+would expect the units of both the variables *tbodyaccmeanx* and
+*tbodyaccstdx* to be the units of acceleration (e.g. m/s^2), and also
+for the *tbodyaccstdx* to be positive.  However, there are negative
+values of *tbodyaccstdx* in the datasets.
 
 ### Note about the units for all the variables ###
 
-From the original *README.txt*:
+A note at the end of the *README.txt* file with the original data says the following:
+
+-  Features are normalized and bounded within [-1,1]
+
+This note explains why you can and will get negative values for
+features such as *tbodyaccstdx*; the data for the variable have the
+overall mean subtracted out and then these "difference from the mean"
+are likely divided by the maximum absolute value of the feature, in
+order to get a range from -1 to 1.  The quantities in the original
+dataset are thus unitless, similar in that respect to z-scores; a particular
+data value tells how far that acceleration value was from some central
+value, relative to a maximum value.  I could not find information on
+numerical values used for normalization.
+
+Just for the record regarding units of the variables in the original
+dataset, although not needed for this assignment, it's good to note,
+from the *README.txt* with the original data:
 
 - 'train/Inertial Signals/total_acc_x_train.txt': The acceleration
   signal from the smartphone accelerometer X axis in standard gravity
@@ -161,22 +188,56 @@ From the original *README.txt*:
   vector measured by the gyroscope for each window sample. The units
   are radians/second.
 
--  Features are normalized and bounded within [-1,1]
+Structure of the tidy dataset
+-----------------------------
 
-So, the original units are those of acceleration and angular velocity;
-however, the data for the assignment has been normalized (a mean has
-been subtracted from each observation), so all features including
-"standard deviation" type will have some negative as well as some
-positive values.  Since the tidy dataset only consists of means of
-features, this will be the case for the tidy data values as well.
+The first two variables in the tidy dataset *subjectactdata.txt* are
 
-List of variables with some sample descriptions
------------------------------------------------
+- *subject* which is an id ranging from 1 to 30
+
+- *activity* a factor with six levels *walking*, *walkingupstairs*, *walkingdownstairs*,
+    *sitting*, *standing*, *laying*
+
+The assignment was to create a second, independent tidy data set with
+the average of each variable for each activity and each subject.
+There are 180 subject/activity combinations, but there are around
+13000 rows in the original dataset with training and test sets
+combined.  Each row in the original data corresponds to a single
+2.56-sec window; from the YouTube video of the experiment we see that
+it took about 90 secs for one subject to do all six activities, and
+also the windows had 50% overlap; hence, there are potentially several
+dozen rows of observations for each subject.  The tidy dataset will
+reduce the original data from say 80 or 100 rows for a subject (it
+varies), to six rows per subject, one per activity. 
+
+In the course lecture on Tidy Data it was stressed that for a dataset
+to be tidy, there should be one observation per row and one variable
+per column.  This is illustrated with examples by Hadley Wickham in his
+paper [Tidy Data][dl]
+
+[dl]: http://vita.had.co.nz/papers/tidy-data.pdf
+
+When you open up the dataset *subjectactdata.txt* in an ordinary
+editor, it looks very "messy" because there are long names and 68
+columns with many digits in the numbers.  However, this is a tidy
+dataset by the definition.  (And, it looks a lot better if you read it
+into R and use View() to look at it---thanks to community TA David
+Hood for this tip, and many other useful posts.)
+
+The 66 measurement variables included in *subjectactdata.txt* are
+listed below.  The explanations are for the original variables.  The
+data in the tidy dataset *subjectactdata.txt* consists of the means of
+these variables over several overlapping windows.  Also note that the
+means are taken over a varying number of windows per subject/activity
+combination.
+
+
+List of variables in the tidy dataset with some descriptions
+------------------------------------------------------------
 
 1 tbodyaccmeanx
    - time domain, body acceleration in x direction, mean signal in a particular
-    2.56 second window
-   - normalized to be between -1 and 1
+    2.56-sec window, normalized to be between -1 and 1
 
 2 tbodyaccmeany
     - same as 1, in y direction
@@ -185,8 +246,9 @@ List of variables with some sample descriptions
     - same as 1, in z direction
 
 4 tbodyaccstdx
-    - like 1:  time domain, body accel. in x direction, standard deviation of signals
-    in a particular 2.56 second window, normalized to be between -1 and 1
+    - like 1:  time domain, body acceleration in x direction, 
+      standard deviation of signals in a particular 2.56-sec window, 
+      normalized to be between -1 and 1
 
 5 tbodyaccstdy
 
