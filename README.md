@@ -23,36 +23,37 @@ dataset is in a large archive, a .zip format, so it needs to be
 unzipped.  This may happen automatically when you download, but if not
 you can use the unzip command.  Here is a step-by-step guide:
 
-1. Right click on the link in the assignment,
+(1) Right click on the link in the assignment,
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 and choose Download LinkedFile.  It is a big file, and you may need to
 wait about 10-30 seconds for it to finish downloading.  Look for a
 zipped file called getdata-projectfiles-UCI HAR Dataset.zip in your
 Downloads folder.
 
-2. Rename the file projectfiles.zip.  On the command line do
+(2) Rename the file projectfiles.zip.  On the command line do
+
 ```
  mv "getdata-projectfiles-UCI HAR Dataset.zip" projectfiles.zip
 ```
 
-3.  Move this file to the folder where you will run the code
+(3)  Move this file to the folder where you will run the code
 
 ```
  mv projectfiles.zip /YourUserName/Project
 ```
 
-4.  Unzip the file in that directory:
+(4)  Unzip the file in that directory:
 On the Mac,
 ```
 unzip projectfiles.zip
 ```
 
-5.  You should see a directory called UCI HAR Dataset.  Rename it to UCIHAR-Dataset.
+(5)  You should see a directory called UCI HAR Dataset.  Rename it to UCIHAR-Dataset.
 ```
  mv "UCI HAR Dataset" UCIHAR-Dataset
 ```
 
-6.  You can go into the directory UCIHAR-Dataset to check that it has
+(6)  You can go into the directory UCIHAR-Dataset to check that it has
 four files and two directories, which are explained in the README.txt
 file in that directory.
 
