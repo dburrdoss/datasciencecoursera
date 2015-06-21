@@ -208,7 +208,7 @@ Next I give some general explanation of what the code in
 *run_analysis.R* does, organized by the five steps outlined in the
 assignment.
 
-1. Merge the training and the test sets to create one dataset.
+(1) Merge the training and the test sets to create one dataset.
 
 From the above README it is clear that the *train* and *test* datasets
 contain distinct subjects.  There are 21 subjects in the training
@@ -221,7 +221,7 @@ sets, this means we just need concatenation, or operations such as
 datasets by a common id.  In *run_analysis.R*, the comments in Step
 1. spell out the details.
 
-2. Extract only the measurements on the mean and standard deviation for each measurement.
+(2) Extract only the measurements on the mean and standard deviation for each measurement.
 
 I referred to *features_info.txt* which gives a general description of
 the features and to *features.txt* which lists them all out.  Some of
@@ -233,21 +233,21 @@ features with either of these strings; this is a "brute force"
 approach.  I checked the results by printing out several pieces of the
 result.
 
-3. Use descriptive activity names to name the activities in the data
+(3) Use descriptive activity names to name the activities in the data
 set.
 
 The ordering of the activity names came from the file
 *activity_labels.txt* in the original data.  Use of a factor object
 seems the natural way to carry the names along with the whole dataset.
 
-4. Appropriately label the data set with descriptive variable names.
+(4) Appropriately label the data set with descriptive variable names.
 
 I used the feature names from the list in *features.txt* as they are descriptive;
 I just modified them using some string manipulation commands so they are valid R
 names.  I also reordered the dataset at this point, in increasing numerical order,
 first on subject, then on activity.
 
-5.  Create a second, independent tidy data set with the average of each variable for
+(5)  Create a second, independent tidy data set with the average of each variable for
 each activity and each subject.
 
 The dataset I create is called *subjectactdata*.  It has 180 rows and
