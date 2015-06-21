@@ -137,9 +137,9 @@ Based on the explanation above in *features_info.txt*, and the
 complete list of 561 variables in 'features.txt" (not given here), I
 selected 66 variables that had either "mean()" or "std()" in the name
 for inclusion in the tidy dataset.  In the R script *run_analysis.R*
-the names are changed slightly to conform to R naming conventions.  It
-is useful to explain one of the variables in detail; explanations of
-the other variables are similar.  The first variable name in the tidy
+the names are changed slightly to conform to R naming conventions.
+Next we explain one of the variables in detail; explanations of the
+other variables are similar.  The first variable name in the tidy
 dataset is *tbodyaccmeanx* (corresponding to *tBodyAcc-mean()-X* in
 the original dataset).  This name stands for the mean in the x
 direction of body acceleration; the "t" at the beginning means it's
