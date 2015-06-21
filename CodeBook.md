@@ -1,6 +1,6 @@
 Introduction
 ------------
-This codebook has the following sections:
+This CodeBook has the following sections:
 
 - General description of all variables in the original dataset; this
 section is the *features_info.txt* file that came with the original
